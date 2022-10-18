@@ -1,0 +1,31 @@
+{% extends 'layout.html' %} 
+{% block title %} Top 250 Movies {% endblock %}
+{% block body %} 
+<div class="wrapper">
+    <div class="links">
+		<h2>Top 250 Movies</h2>
+	</div>
+	<div class="view_main">
+		<div class="view_wrap list-view" >
+            {% for element in data['items'] %}
+			<div class="view_item">
+				<div class="vi_left">
+					<div>
+						<a href="/title/{{element['id']}}">
+							<img src={{element['image']}} alt="" class="image img-responsive" width="90%">
+						</a>
+					</div>
+				</div>
+				<div class="vi_right">
+					<a href="/title/{{element['id']}}">{{element['fullTitle']}}</a>
+					<p class="content" style="color: #89a;">
+                        {{element['crew']}}
+                    </p>
+				</div>
+			</div>
+			{% endfor %}
+			</div>
+
+		</div>
+	</div>
+{% endblock body%}

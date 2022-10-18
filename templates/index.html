@@ -1,0 +1,38 @@
+{% extends 'layout.html'%}
+{% block title %} Movies Diary {% endblock %}
+{% block body %}
+<div id="container">
+    <img src="/static/wallpaper.jpg" >
+    <div id="example">The internet's not written in pencil, Mark. It's written in ink.</div>
+</div>
+<div class="center">
+    <h3 id="phrase">Enter movie or series name to search</h3>
+<form action="/search" method="get" class="form-inline">
+    <input name="q" type="text" autocomplete="off" autofocus class="form-control" placeholder="Enter a title">
+    <input type="submit" class="btn btn-primary" value="Search">
+</form>
+</div>
+<div class="wrapper">
+    <div class="links">
+        <h2><a href="/topratedmovies" style="color: rgb(163, 160, 160);">Top 250 Movies</a> </h2>
+    </div>
+    <div class="view_main">
+        <div class="view_wrap grid-view" >
+            {% for title in trm['items'] %}
+            {% if loop.index <= 6%}
+            <div class="view_item" style="border:0;">
+                <div class="vi_left">
+                    <a href="/title/{{title['id']}}">
+                        <img src={{title['image']}} alt="" >
+                    </a>
+                </div>
+                <div class="content">
+					<a href="/title/{{title['id']}}">{{title['fullTitle']}}</a>
+                </div>
+            </div>
+            {% endif%}
+            {% endfor %}
+            </div>
+        </div>
+        
+{% endblock body%}

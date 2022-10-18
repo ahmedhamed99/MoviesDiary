@@ -1,0 +1,32 @@
+{% extends 'layout.html' %} 
+{% block title %} Watchlist {% endblock %}
+{% block body %} {% if data == None %} <div class="center"><p>You don't have movies or series in watchlist.</p><p>Consider addig some</p></div> {% else %}
+{{data[0]['image']}}
+<div class="wrapper">
+    <div class="links">
+		<h2>WatchList</h2>
+	</div>
+	<div class="view_main" >
+		<div class="view_wrap grid-view" >
+            {% for element in data %}
+			<div class="view_item" style="border: 0;">
+				<div class="vi_left" >
+					<a href="/title/{{element['movie_id']}}">
+						<img src={{element['imageurl']}} alt="" class="image img-responsive" width="90%" >
+					</a>
+				</div>
+				<div class="vi_right">
+					<a href="/title/{{element['movie_id']}}">{{element['title']}}</a>
+					<form action="/watchlist" method="post" style="text-align: center;">
+                        <input name="remove" type="hidden" value={{element['movie_id']}} >
+                        <input type="submit" class="btn" value="Remove from watchlist">
+                    </form>
+				</div>
+			</div>
+			{% endfor %}
+			</div>
+
+		</div>
+	</div>
+</div>
+{% endif %} {% endblock body%}

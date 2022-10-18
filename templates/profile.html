@@ -1,0 +1,33 @@
+{% extends 'layout.html'%}
+{% block title %} Profile {% endblock %}
+{% block body %}
+        <div id="container">
+            <img src="/static/ib.jpg" >
+            <div id="greet">Hey, {{session.username}}</div>
+        </div>
+        {% if data == None %} <div class="center"><p>You don't have movies or series in favourites.</p><p>Consider addig some</p></div> {% else %}
+<div class="wrapper">
+    <div class="links">
+		<h2>Recommendations based on your favourites list</h2>
+	</div>
+	<div class="view_main">
+		<div class="view_wrap grid-view" >
+            {% for element in data %}
+			<div class="view_item">
+				<div class="vi_left">
+					<a href="/title/{{element['movie_id']}}">
+						<img src={{element['image']}} alt="" class="image img-responsive" width="90%" >
+					</a>
+				</div>
+				<div class="vi_right">
+					<a href="/title/{{element['id']}}">{{element['title']}}</a>
+				</div>
+			</div>
+			{% endfor %}
+			</div>
+
+		</div>
+	</div>
+</div>
+{% endif %} 
+{% endblock %}

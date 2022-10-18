@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+{% block title %} {{data['fullTitle']}} {% endblock %}
+{% block body%}
+    <div class="content">
+        <h1>{{data['fullTitle']}}</h1>
+    </div>
+    <div class="content">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="left">
+                        <img src={{data['image']}} class="image img-responsive" >
+                    </div>
+                </td>
+                <td>
+                    <div class="right">
+                        <h3 >Genres</h3>
+                        <p style="border-bottom:1px solid #2c3440;">{{data['genres']}}</p>
+                        <p style="border-bottom:1px solid #2c3440;">Rated: {{data['contentRating']}}</p>
+                        <p style="border-bottom:1px solid #2c3440;">Imdb Rating: {{data['imDbRating']}}</p>
+                        <p style="border-bottom:1px solid #2c3440;">Run Time: {{data['runtimeStr']}}</p>
+                        <form action="/title/{{data['id']}}" method="post">
+                            <input type="hidden" name="id" value={{data['id']}}>
+                            <input type="submit" class="btn" style="color: rgb(190, 190, 190);" value="YouTube Trailer">
+                        </form>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {% if not watchlisted %}
+                                        <form action="/title/{{data['id']}}" method="post">
+                                            <input type="hidden" name="watchlist" value={{data['id']}}>
+                                            <input type="submit" value="Add to watchlist" class="btn btn-dark">
+                                        </form>
+                                        {% else %}
+                                            <input type="button" disabled="disabled" value="Added to watchlist" class="btn btn-dark">
+                                        {% endif %}
+                                        </td>
+                                        <td>
+                                        {% if not faved %}
+                                        <form action="/title/{{data['id']}}" method="post">
+                                            <input type="hidden" name="favlist" value={{data['id']}}>
+                                            <input type="submit" value="Add to favourites" class="btn btn-dark">
+                                        </form>
+                                        {% else %}
+                                            <input type="button" disabled="disabled" value="Added to favourites" class="btn btn-dark">
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="content">
+        <h3>Descrption</h3>
+    </div>
+    <div class="content">
+        <p>{{data['plot']}}</p>
+    </div>
+    <div class="content">
+        <p style="font-size: large;">Director:  {% for name in data['directorList']%} <a href="/person/{{name['id']}}" style="font-weight: normal;">{{name['name']}}. </a>{% endfor %}</p>
+    </div>
+    <div class="content">
+        <p style="font-size: large;">Writers: {% for name in data['writerList']%} <a href="/person/{{name['id']}}" style="font-weight: normal;">{{name['name']}}. </a>{% endfor %}</p>
+    </div>
+    <div class="wrapper">
+        <div class="links">
+            <h2>Actors</h2>
+        </div>
+        <div class="view_main">
+            <div class="view_wrap grid-view" >
+            {% for name in data['actorList']%}
+                <div class="view_item" style="width: 110px; height: 110px; border: 0;">
+                    <div class="vi_left">
+                    <a href="/person/{{name['id']}}">
+                        <img src={{name['image']}} alt="" class="image img-responsive" style="border-radius: 50%; width: 80px; height: 80px;">
+                    </a>
+                    </div>
+                    <div class="vi_right">
+                        <p class="title"><a href="/person/{{name['id']}}" >{{name['name']}}</a></p>
+                    </div>
+                </div>
+                {% endfor%}
+                </div>
+            </div>
+    </div>
+    <div class="wrapper">
+        <div class="links">
+            <h2>Similars</h2>
+        </div>
+        <div class="view_main" >
+            <div class="view_wrap grid-view" >
+                {% for title in data['similars'] %}
+                    {% if loop.index <= 6%}
+                        <div class="view_item" style="border:0;">
+                            <div class="vi_left">
+                                <a href="/title/{{title['id']}}">
+                                    <img src={{title['image']}} alt="" class="image img-responsive">
+                                </a>
+                            </div>
+                            <div class="vi_right">
+                            <a href="/title/{{title['id']}}">{{title['fullTitle']}}</a>
+                            </div>
+                        </div>
+                    {% endif%}
+                {% endfor %}
+                </div>
+                </div>
+            </div>
+    
+{% endblock body%}

@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block title %} {{data['name']}} {% endblock %}
+{% block body%}
+    <div class="content">
+        <h1>{{data['name']}}</h1>
+    </div>
+    <div class="content">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="left" style="width: 80%; ">
+                <img src={{data['image']}} >
+                    </div>
+                </td>
+                <td>
+                    <div class="right" style="width: 125%; ">
+                        <h3 >Name</h3>
+                        <p style="border-bottom:1px solid #2c3440;">{{data['name']}}</p>
+                        <h3 >Role</h3>
+                        <p style="border-bottom:1px solid #2c3440;">{{data['role']}}</p>
+                        <h3 >BirthDate</h3>
+                        <p style="border-bottom:1px solid #2c3440;"> {{data['birthDate']}}</p>
+                        {% if data['deathDate'] != None%}
+                        <h3 >DeathDate</h3>
+                        <p style="border-bottom:1px solid #2c3440;"> {{data['deathDate']}}</p>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="content">
+        <h3>Summary</h3>
+    </div>
+    <div class="content">
+        <p>{{data['summary']}}</p>
+    </div>
+    <div class="wrapper">
+        <div>
+            <h2>Known For</h2>
+        </div>
+        <div class="view_main">
+            <div class="view_wrap grid-view" >
+            {% for title in data['knownFor']%}
+                <div class="view_item" style="border: 0;">
+                    <div class="vi_left">
+                        <a href="/title/{{title['id']}}">
+                            <img src={{title['image']}} alt="" >
+                        </a>
+                    </div>
+                    <div class="vi_right">
+                        <p class="title"><a href="/title/{{title['id']}}" >{{title['fullTitle']}}</a></p>
+                    </div>
+                </div>
+                {% endfor%}
+                </div>
+            </div>
+    </div>
+    {% endblock %}
