@@ -55,6 +55,3 @@
   - ##### Inside of app.py is the logic of the application where i fetch data from the imdb api and send it to the templates.
 
   - #### Also the database is handled in app.py via sqlalchemy
-
-### How to use Locally
-- clone this repo `git clone https://github.com/ahmedhamed99/MoviesDiary.git`
